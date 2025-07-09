@@ -31,12 +31,12 @@ Then run it
 code - docker run --privileged -p 8080:8080 python-exec-api
 
 
-That’s it. The API should now be live on http://localhost:8080.
+That’s it. The API should now be live on https://python-exec-api-290803380630.us-west1.run.app/
 
 Testing with curl
 1) Valid Script
 
-curl -X POST http://localhost:8080/execute \
+curl -X POST https://python-exec-api-290803380630.us-west1.run.app/execute
   -H "Content-Type: application/json" \
   -d '{"script": "def main():\n return {\"msg\": \"hello\"}"}'
 Expected output:
@@ -45,7 +45,7 @@ Expected output:
 
 2) Invalid Script (Number Instead of String)
 
-curl -X POST http://localhost:8080/execute \
+curl -X POST https://python-exec-api-290803380630.us-west1.run.app/execute
   -H "Content-Type: application/json" \
   -d '{"script": 12345}'
 Expected output:
@@ -54,7 +54,7 @@ Expected output:
 
 3) Missing 'script' Field
 
-curl -X POST http://localhost:8080/execute \
+curl -X POST https://python-exec-api-290803380630.us-west1.run.app/execute
   -H "Content-Type: application/json" \
   -d '{"not_script": "print(\"oops\")"}'
 Expected output:
@@ -63,7 +63,7 @@ Expected output:
 
 4) Script Too Big
 
-curl -X POST http://localhost:8080/execute \
+curl -X POST https://python-exec-api-290803380630.us-west1.run.app/execute
   -H "Content-Type: application/json" \
   -d "{\"script\": \"$(head -c 11000 < /dev/zero | tr '\0' 'a')\"}"
 Expected output:
