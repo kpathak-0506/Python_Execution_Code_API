@@ -100,6 +100,30 @@ Because Cloud Run is a managed environment with limited kernel capabilities, nsj
 To work around this, I temporarily switched to running user scripts safely using subprocess with time and memory limits.
 
 
+# Running with nsjail(Local)
+nsjail_cmd = [
+    'nsjail',
+    '--mode', 'o',
+    '--time_limit', '3',
+    '--rlimit_as', '500',
+    '--disable_clone_newnet',
+    '--disable_clone_newuser',
+    '--disable_clone_newns',
+   '--disable_clone_newpid',
+    '--disable_clone_newipc',
+    '--disable_clone_newuts',
+    '--disable_clone_newcgroup',
+   '--bindmount_ro', '/app',
+   '--bindmount_ro', '/usr',
+    '--bindmount_ro', '/usr/local/bin',
+    '--bindmount_ro', '/lib',
+   '--bindmount_ro', '/lib64',
+   '--bindmount_ro', '/bin',
+   '--bindmount_ro', temp_dir,   
+   '--', '/usr/local/bin/python3', w_file_path
+]
+
+
 # With nsjail locally
 ![test1](https://github.com/user-attachments/assets/4900d42c-2bf3-476c-a4b6-866c9c5b6ea4)
 
@@ -110,6 +134,13 @@ To work around this, I temporarily switched to running user scripts safely using
 ![test3](https://github.com/user-attachments/assets/6cf195b6-7df6-4750-960e-67c34bd83375)
 
 
+# Running with subprocess(Cloud Run)
+ completed = subprocess.run(
+            ['python3', w_file_path],
+            capture_output=True,
+            text=True,
+            timeout=3
+        )
 # On Google cloud run
 ![test4](https://github.com/user-attachments/assets/f2a1943a-aa91-4a12-9a0c-d35bb84154dc)
 
