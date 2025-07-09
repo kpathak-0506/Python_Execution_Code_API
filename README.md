@@ -23,7 +23,7 @@ I used **nsjail** for isolation, and Docker to make everything portable and depl
 
 Build it:
 
-```bash
+
 code - docker build -t python-exec-api .
 
 Then run it
@@ -86,7 +86,6 @@ Try sending a script >10KB. You’ll get:
 {
   "error": "Script too large. Max size allowed is 10KB."
 }
-
 
 
 
