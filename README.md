@@ -3,7 +3,7 @@
 Welcome!
 This is a mighty Flask API that safely runs Python code sent via HTTP. It’s built for experimentation and sandboxing, perfect for learning, testing, or running student-submitted code in a safe container.
 
-We use **nsjail** for isolation (read: no rogue infinite loops or imports stealing the show 🚫💻), and Docker to make everything portable and deployment-ready.
+I used **nsjail** for isolation, and Docker to make everything portable and deployment-ready.
 
 # What This API Does
 
@@ -88,5 +88,17 @@ Try sending a script >10KB. You’ll get:
 }
 
 
-This project was made to learn, share, and make isolated code execution easier to understand.
+
+
+Important Notes on nsjail
+Initially, I tried to sandbox Python code execution using nsjail for enhanced security.
+
+nsjail works perfectly when running locally ( in your Docker container on machine).
+
+However, on Google Cloud Run, nsjail runs into low-level Linux kernel restrictions causing failures (errors with prctl and clone flags).
+
+Because Cloud Run is a managed environment with limited kernel capabilities, nsjail’s sandboxing cannot function properly there.
+
+To work around this, I temporarily switched to running user scripts safely using subprocess with time and memory limits.
+
 
