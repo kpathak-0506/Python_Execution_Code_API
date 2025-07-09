@@ -7,9 +7,9 @@ I used **nsjail** for isolation, and Docker to make everything portable and depl
 
 # What This API Does
 
-- Accepts a `POST` request with a Python script
-- Runs the script in a sandboxed environment using `nsjail`
-- Expects a `main()` function and **only** returns what it returns
+- Accepts a 'POST' request with a Python script
+- Runs the script in a sandboxed environment using 'nsjail'
+- Expects a 'main()' function and **only** returns what it returns
 - Ignores all other print statements or side effects
 - Prevents large or malicious scripts with size and type checks
 
@@ -88,8 +88,7 @@ Try sending a script >10KB. You’ll get:
 }
 
 
-
-Important Notes on nsjail
+# Important Notes on nsjail
 Initially, I tried to sandbox Python code execution using nsjail for enhanced security.
 
 nsjail works perfectly when running locally ( in your Docker container on machine).
