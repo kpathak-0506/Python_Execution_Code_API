@@ -15,8 +15,8 @@ We use **nsjail** for isolation (read: no rogue infinite loops or imports steali
 
 # Requirements
 
-- Docker(locally)
-- Google Cloud SDK(for deployment to Cloud Run)
+- Docker
+- Google Cloud SDK
 
 
 # Run Locally (in Docker)
