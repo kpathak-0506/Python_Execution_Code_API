@@ -33,59 +33,43 @@ code - docker run --privileged -p 8080:8080 python-exec-api
 
 That’s it. The API should now be live on http://localhost:8080.
 
-Testing (PowerShell)
+Testing with curl
 1) Valid Script
 
-$body = @{
-    script = "def main():`n    return {'msg': 'hello'}"
-} | ConvertTo-Json -Compress
+curl -X POST http://localhost:8080/execute \
+  -H "Content-Type: application/json" \
+  -d '{"script": "def main():\n return {\"msg\": \"hello\"}"}'
+Expected output:
 
-Invoke-RestMethod -Method POST -Uri http://localhost:8080/execute -ContentType "application/json" -Body $body
-You should get back:
-
-
-{
-  "result": {
-    "msg": "hello"
-  }
-}
+{ "result": { "msg": "hello" } }
 
 2) Invalid Script (Number Instead of String)
 
-$body = @{
-    script = 12345
-} | ConvertTo-Json -Compress
-
-Invoke-RestMethod -Method POST -Uri http://localhost:8080/execute -ContentType "application/json" -Body $body
+curl -X POST http://localhost:8080/execute \
+  -H "Content-Type: application/json" \
+  -d '{"script": 12345}'
 Expected output:
 
-
-{
-  "error": "'script' must be a string and included in the request"
-}
-
+{ "error": "'script' must be a string and included in the request" }
 
 3) Missing 'script' Field
 
-$body = @{
-    not_script = "print('oops')"
-} | ConvertTo-Json -Compress
-
-Invoke-RestMethod -Method POST -Uri http://localhost:8080/execute -ContentType "application/json" -Body $body
+curl -X POST http://localhost:8080/execute \
+  -H "Content-Type: application/json" \
+  -d '{"not_script": "print(\"oops\")"}'
 Expected output:
 
+{ "error": "'script' must be a string and included in the request" }
 
-{
-  "error": "Missing 'script' in request"
-}
+4) Script Too Big
 
-4)Script Too Big
-Try sending a script >10KB. You’ll get:
+curl -X POST http://localhost:8080/execute \
+  -H "Content-Type: application/json" \
+  -d "{\"script\": \"$(head -c 11000 < /dev/zero | tr '\0' 'a')\"}"
+Expected output:
 
+{ "error": "Script too large. Max size allowed is 10KB." }
 
-{
-  "error": "Script too large. Max size allowed is 10KB."
-}
 
 
 # Important Notes on nsjail
