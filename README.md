@@ -102,3 +102,17 @@ Because Cloud Run is a managed environment with limited kernel capabilities, nsj
 To work around this, I temporarily switched to running user scripts safely using subprocess with time and memory limits.
 
 
+# With nsjail locally
+![test1](https://github.com/user-attachments/assets/4900d42c-2bf3-476c-a4b6-866c9c5b6ea4)
+
+
+![test2](https://github.com/user-attachments/assets/62d9c99c-e447-4673-bfac-3cb135ff0692)
+
+
+![test3](https://github.com/user-attachments/assets/6cf195b6-7df6-4750-960e-67c34bd83375)
+
+
+# On Google cloud run
+![test4](https://github.com/user-attachments/assets/f2a1943a-aa91-4a12-9a0c-d35bb84154dc)
+
+
